@@ -1,0 +1,258 @@
+// Color Pallete
+$main-radius: 8px;
+$main-padding: 5px;
+$white: #fff;
+$light: #f8f9fa;
+$dark: #343a40;
+$black: #000;
+$blue: #007bff;
+$light-blue: hsla(189, 77%, 58%, 0.15);
+$nav-item-width: 130px;
+$nav-item-height: 25px;
+$gutter: 5px;
+$minWidth: 600px;
+$maxWidth: 1fr;
+
+/*
+1. 1:1 - 100%
+2. 16:9 - 56.25%
+3. 4:3 - 75%
+4. 3:2 - 66.66%
+5. 8:5 - 62.5%
+*/
+$ratio: 45.25%;
+
+*,
+*::after,
+*::before {
+  font-family: "archia";
+  box-sizing: border-box;
+}
+
+body {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  margin: 0;
+  padding: 0;
+  background: $light;
+  width: 80vw;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.chart-container {
+  display: grid;
+  grid-gap: $gutter;
+  padding-top: 5px;
+  /*
+	Minimum Width = 368px
+	Maximum Width = 1fr i.e full width
+	A card will wrap to next row if the browser can not fit cards with their minimum width
+	
+	auto-fill - this will try to fill all the columns or leave an empty columns if there aren't enough cards
+	*/
+  grid-template-columns: repeat(auto-fill, minmax($minWidth, $maxWidth));
+
+  // auto-fit - this will fit all the cards in single row if the browser's width is equal to width of all the cards combine + gap
+  // grid-template-columns: repeat(auto-fit, minmax($minWidth, $maxWidth));
+
+  @media screen and (max-width: 320px) {
+    grid-template-columns: repeat(auto-fill, minmax(90%, $maxWidth));
+  }
+}
+
+.chart-div {
+  padding-top: $ratio;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.chart-div .cc {
+  top: 0;
+  left: 0;
+  width: 100%;
+  position: absolute;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  grid-area: nav;
+  border-radius: 0px 0px $main-radius $main-radius;
+  padding-top: $main-padding;
+  padding-bottom: $main-padding;
+  position: -webkit-sticky;
+  position: sticky; //this has to be accompanied with 'top:0'
+  z-index: 5;
+  top: 0; //'position: sticky' works only with this
+  background: $light;
+}
+.heading {
+  margin: 0;
+}
+.form-control {
+  width: 200px;
+  height: $nav-item-height;
+  border: 1px solid $light-blue;
+  background: $light-blue;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.disclaimer-btn {
+  width: $nav-item-width;
+  height: $nav-item-height;
+  border: 1px solid #cdcdcd;
+  background: $light;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  transition: background-color 1s ease-out;
+}
+
+.disclaimer-btn::after {
+  content: "Disclaimer";
+}
+.disclaimer-btn:hover::after {
+  content: "Click me!";
+}
+
+.disclaimer-btn:hover {
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+  background: hsla(39, 80%, 50%, 0.5);
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: 1px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: white;
+  width: 600px;
+  max-width: 60%;
+}
+
+.modal.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+.modal-header {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.modal-header .title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-header .close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-body {
+  padding: 10px 15px;
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  transition: 200ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+  z-index: 9;
+}
+
+#combined-chart {
+  background: hsla(43, 14%, 90%, 0.8);
+  grid-area: combined-chart;
+  border-radius: $main-radius;
+}
+
+#CB-chart {
+  grid-area: CB-chart;
+  background: #cfdcfc;
+  border-radius: $main-radius;
+}
+#hydel-chart {
+  grid-area: hydel-chart;
+  background: #d2fccf;
+  border-radius: $main-radius;
+}
+#KB-chart {
+  grid-area: KB-chart;
+  background: #fcdfcf;
+  border-radius: $main-radius;
+}
+footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  grid-area: footer;
+  border-radius: $main-radius;
+  padding-top: $main-padding;
+}
+.axis-label {
+  // font-size: 12px;
+  font-weight: 400;
+}
+
+.svg-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 10%;
+  vertical-align: top;
+  overflow: hidden;
+}
+.svg-content {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.line {
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500;
+  animation: dash 5s linear forwards;
+}
+
+#tooltip {
+  z-index: 50;
+  border-radius: 5px;
+}
+
+.mouse-line-text {
+  z-index: 10;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}

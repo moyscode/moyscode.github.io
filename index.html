@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Reservoir Info</title>
+    <!-- Font Preloading -->
+    <link
+      rel="preload"
+      href="/fonts/Archia/archia-semibold-webfont.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Archia/archia-medium-webfont.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Archia/archia-bold-webfont.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <style>
+      /* font-face declarations for preloaded fonts */
+      /* These are the only 3 fonts being used.
+      font-face declarations for thin, regular and light fonts should be added as needed */
+      @font-face {
+        font-family: "Archia";
+        src: url("/fonts/Archia/archia-semibold-webfont.eot");
+        src: local("Archia"),
+          url("/fonts/Archia/archia-semibold-webfont.eot?#iefix")
+            format("embedded-opentype"),
+          url("/fonts/Archia/archia-semibold-webfont.woff2") format("woff2"),
+          url("/fonts/Archia/archia-semibold-webfont.woff") format("woff"),
+          url("/fonts/Archia/archia-semibold-webfont.ttf") format("truetype");
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Archia";
+        src: url("/fonts/Archia/archia-medium-webfont.eot");
+        src: local("Archia"),
+          url("/fonts/Archia/archia-medium-webfont.eot?#iefix")
+            format("embedded-opentype"),
+          url("/fonts/Archia/archia-medium-webfont.woff2") format("woff2"),
+          url("/fonts/Archia/archia-medium-webfont.woff") format("woff"),
+          url("/fonts/Archia/archia-medium-webfont.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Archia";
+        src: url("/fonts/Archia/archia-bold-webfont.eot");
+        src: local("Archia"),
+          url("/fonts/Archia/archia-bold-webfont.eot?#iefix")
+            format("embedded-opentype"),
+          url("/fonts/Archia/archia-bold-webfont.woff2") format("woff2"),
+          url("/fonts/Archia/archia-bold-webfont.woff") format("woff"),
+          url("/fonts/Archia/archia-bold-webfont.ttf") format("truetype");
+        font-weight: 900;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
+  </head>
+  <body>
+  
+      <nav>
+        <p class="heading">Karnataka Reservoir Data</p>
+        <div class="dropdown">
+          <select id="var-select" class="form-control">
+            <option selected value="storage-quantity">Storage Quantity Chart</option>
+            <option value="water-level">Water Level Chart</option>
+            <option value="storage-level">Storage Level Chart</option>
+          </select>
+        </div>
+        <button class="disclaimer-btn" value="" data-modal-target='#modal'>
+        </button>
+        <div class="modal" id="modal">
+          <div class="modal-header">
+            <div class="title">Disclaimer </div>
+            <button data-close-button class="close-button">&times;</button>
+          </div>
+          <div class="modal-body">
+            <p align="left">The contents of this website are for information purposes only and for enabling public
+to have quick and easy access to information. We are taking every effort to provide
+accurate and updated information. However, it is likely that the details may change prior to its
+updating in the website. <br>Hence, we do not assume any legal liability on the
+completeness, accuracy or usefulness of the contents provided in this website.
+The links are provided to other external sites on the webpage. We are not
+responsible for the accuracy of the contents in those sites. The hyperlinks given to
+external sites do not constitute an endorsement of information, products or services
+offered by those sites.
+<br>Despite our best efforts, we do not warranty that the contents in this site is free
+from infection by computer viruses.
+<br>We welcome your suggestions to improve our site and request that any error found
+may kindly be brought to our notice.<br>
+<br>Thanks for visiting our site.<br>
+<br>Web Site Administration Team</p>
+          </div>
+
+        </div>
+        <div id="overlay"></div>       
+                
+      </nav>
+      <div class="chart-container">
+        <div class="cc">
+          <div id="combined-chart" class="svg-container chart-div"></div>
+        </div>
+        <div class="cc">        
+          <div id="CB-chart" class="svg-container chart-div"></div>
+          </div>
+          <div class="cc">
+          <div id="hydel-chart" class="svg-container chart-div"></div>
+          </div>
+          <div class="cc">
+          <div id="KB-chart" class="svg-container chart-div"></div>
+          </div>
+          
+      </div>
+      <footer>
+        &copy; Copyright 2021 moyscode        
+        <p>Data from <a href="https://twitter.com/KarnatakaSNDMC" target="_blank">@KarnatakaSNDMC</a></p>
+      </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/constants.js"></script>
+    <!-- <script src="index.js"></script> -->
+    <!-- <script src="testing.js"></script> -->
+    <script src="script.js"></script>
+    <script src="/js/storageLevel/storageLevelChart.js"></script>
+    <script src="/js/storageLevel/waterLevelChart.js"></script>
+    <script src="/js/storageLevel/storageQuantityChart.js"></script>
+    <script src="/js/storageLevel/mainStorageChart.js"></script>
+    </script>
+  </body>
+</html>
